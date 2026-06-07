@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% load django_bootstrap5 %}
+
+{% block title %}Meus Filmes - MovieTrack{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h1>Meus Filmes</h1>
+    <a href="{% url 'criar_filme' %}" class="btn btn-success">Adicionar Filme</a>
+</div>
+
+<form method="get" class="mb-4">
+    <div class="input-group">
+        <input type="text" name="buscar" class="form-control" placeholder="Buscar por título..." value="{{ request.GET.buscar }}">
+        <button class="btn btn-outline-primary" type="submit">Buscar</button>
+    </div>
+</form>
+
+<div class="row">
+    {% for filme in filmes %}
+    <div class="col-md-4 mb-4">
+        <div class="card h-100 shadow-sm">
+            {% if filme.capa %}
+            <img src="{% url 'capa_filmes' filename=filme.capa.name|cut:'capas/' %}" class="card-img-top" alt="{{ filme.titulo }}" style="height: 300px; object-fit: cover;">
+            {% else %}
+            <div class="bg-light d-flex align-items-center justify-content-center" style="height: 300px;">
+                <span class="text-muted">Sem Capa</span>
+            </div>
+            {% endif %}
+            <div class="card-body">
+                <h5 class="card-title">{{ filme.titulo }}</h5>
+                <p class="card-text text-muted">
+                    {{ filme.get_genero_display }} | {{ filme.ano_lancamento|default:"-" }}
+                </p>
+                <div class="mb-2">
+                    {% if filme.assistido %}
+                    <span class="badge bg-success">Assistido</span>
+                    {% else %}
+                    <span class="badge bg-secondary">Não Assistido</span>
+                    {% endif %}
+                    {% if filme.nota %}
+                    <span class="badge bg-warning text-dark">Nota: {{ filme.nota }}/5</span>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="card-footer bg-transparent border-top-0 d-flex justify-content-between">
+                <a href="{% url 'editar_filme' filme.pk %}" class="btn btn-sm btn-outline-primary">Editar</a>
+                <a href="{% url 'deletar_filme' filme.pk %}" class="btn btn-sm btn-outline-danger">Excluir</a>
+            </div>
+        </div>
+    </div>
+    {% empty %}
+    <div class="col-12">
+        <div class="alert alert-info">Nenhum filme encontrado.</div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

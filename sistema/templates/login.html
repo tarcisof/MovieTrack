@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block title %}Login{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center align-items-center" style="min-height: 80vh;">
+    <div class="col-md-5 col-lg-4">
+        <div class="card shadow-lg border-0 rounded-4">
+            <div class="card-body p-5">
+                <h2 class="text-center mb-4 fw-bold" style="color: #162239;">Login</h2>
+                
+                {% if mensagem %}
+                    <div class="alert alert-danger py-2 text-center" role="alert" style="font-size: 14px;">
+                        {{ mensagem }}
+                    </div>
+                {% endif %}
+
+                <form method="post">
+                    {% csrf_token %}
+                    <div class="mb-3 text-start">
+                        <label for="username" class="form-label ms-1" style="color: #162239; font-weight: 500;">Usuário</label>
+                        <input type="text" name="username" id="username" class="form-control form-control-lg rounded-3 border-2" required placeholder="Digite seu usuário" style="background-color: #f8f9fa;">
+                    </div>
+
+                    <div class="mb-4 text-start">
+                        <label for="password" class="form-label ms-1" style="color: #162239; font-weight: 500;">Senha</label>
+                        <input type="password" name="password" id="password" class="form-control form-control-lg rounded-3 border-2" required placeholder="Digite sua senha" style="background-color: #f8f9fa;">
+                    </div>
+
+                    <div class="d-grid gap-2 mt-4">
+                        <button type="submit" class="btn btn-primary btn-lg rounded-3" style="background-color: #162239; border-color: #162239;">
+                            Entrar
+                        </button>
+                    </div>
+                </form>
+
+                <div class="text-center mt-4">
+                    <p class="mb-0 text-muted" style="font-size: 14px;">Não tem uma conta? <a href="{% url 'cadastro' %}" class="text-decoration-none fw-semibold" style="color: #162239;">Cadastre-se</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

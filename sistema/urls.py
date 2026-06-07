@@ -1,6 +1,6 @@
 from django.contrib import admin
-from django.urls import path
-from sistema.views import Login, Logout
+from django.urls import path, include
+from sistema.views import Login, Logout, Cadastro
 
 urlpatterns = [
     path('admin/', admin.site.urls),

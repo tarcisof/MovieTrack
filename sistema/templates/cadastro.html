@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+
+{% block title %}Cadastro{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center align-items-center" style="min-height: 80vh;">
+    <div class="col-md-6 col-lg-5">
+        <div class="card shadow-lg border-0 rounded-4">
+            <div class="card-body p-5">
+                <h2 class="text-center mb-4 fw-bold" style="color: #162239;">Criar Conta</h2>
+
+                {% if mensagem %}
+                    <div class="alert alert-danger py-2 text-center" role="alert" style="font-size: 14px;">
+                        {{ mensagem }}
+                    </div>
+                {% endif %}
+
+                <form method="post">
+                    {% csrf_token %}
+                    <div class="mb-3 text-start">
+                        <label for="username" class="form-label ms-1" style="color: #162239; font-weight: 500;">Nome de Usuário</label>
+                        <input type="text" name="username" id="username" class="form-control rounded-3 border-2" required placeholder="Escolha um usuário" style="background-color: #f8f9fa;">
+                    </div>
+
+                    <div class="mb-3 text-start">
+                        <label for="email" class="form-label ms-1" style="color: #162239; font-weight: 500;">E-mail</label>
+                        <input type="email" name="email" id="email" class="form-control rounded-3 border-2" required placeholder="seu@email.com" style="background-color: #f8f9fa;">
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3 text-start">
+                            <label for="password" class="form-label ms-1" style="color: #162239; font-weight: 500;">Senha</label>
+                            <input type="password" name="password" id="password" class="form-control rounded-3 border-2" required placeholder="Senha" style="background-color: #f8f9fa;">
+                        </div>
+                        <div class="col-md-6 mb-3 text-start">
+                            <label for="password_confirm" class="form-label ms-1" style="color: #162239; font-weight: 500;">Confirmar Senha</label>
+                            <input type="password" name="password_confirm" id="password_confirm" class="form-control rounded-3 border-2" required placeholder="Repita a senha" style="background-color: #f8f9fa;">
+                        </div>
+                    </div>
+
+                    <div class="d-grid gap-2 mt-4">
+                        <button type="submit" class="btn btn-success btn-lg rounded-3" style="background-color: #358d07; border-color: #358d07;">
+                            Cadastrar
+                        </button>
+                    </div>
+                </form>
+
+                <div class="text-center mt-4">
+                    <p class="mb-0 text-muted" style="font-size: 14px;">Já tem uma conta? <a href="{% url 'login' %}" class="text-decoration-none fw-semibold" style="color: #162239;">Faça Login</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

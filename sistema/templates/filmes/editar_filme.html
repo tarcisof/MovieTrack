@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% load django_bootstrap5 %}
+
+{% block title %}Editar Filme - MovieTrack{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8 text-start">
+        <div class="card shadow">
+            <div class="card-body p-4">
+                <h2 class="mb-4">Editar Filme: {{ filme.titulo }}</h2>
+                <form method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {% bootstrap_form form %}
+                    <div class="mt-4 d-flex justify-content-between">
+                        <a href="{% url 'listar_filmes' %}" class="btn btn-outline-primary">Voltar</a>
+                        <button type="submit" class="btn btn-success px-4">Atualizar Filme</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
